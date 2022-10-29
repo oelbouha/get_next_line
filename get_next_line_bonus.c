@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line.c                                    :+:      :+:    :+:   */
+/*   get_next_line_bonus.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: oelbouha <oelbouha@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/28 17:22:27 by oelbouha          #+#    #+#             */
-/*   Updated: 2022/10/29 18:49:03 by oelbouha         ###   ########.fr       */
+/*   Updated: 2022/10/29 18:55:19 by oelbouha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line.h"
+#include "get_next_line_bonus.h"
 
 size_t	ft_strlen(const char *str)
 {
@@ -78,19 +78,19 @@ char	*check_rest(char *rest)
 char	*get_next_line(int fd)
 {
 	char		buff[BUFFER_SIZE + 1];
-	static char	rest[BUFFER_SIZE];
+	static char	rest[OPEN_MAX][BUFFER_SIZE];
 	char		**str;
 	int			r;
 	int			n;
 
-	if (ft_strchr(rest, '\n'))
-		return (check_rest(rest));
+	if (ft_strchr(rest[fd], '\n'))
+		return (check_rest(rest[fd]));
 	n = 0;
 	str = NULL;
 	while (++n)
 	{
 		r = read (fd, buff, BUFFER_SIZE);
-		if (r == 0 && rest[0])
+		if (r == 0 && *rest[fd])
 			break ;
 		if (r < 0 || (r == 0 && str == NULL))
 			return (0);
@@ -101,7 +101,7 @@ char	*get_next_line(int fd)
 		if (ft_strchr(buff, '\n') || r < BUFFER_SIZE)
 			break ;
 	}
-	return (make_line(str, rest, n));
+	return (make_line(str, rest[fd], n));
 }
 // int main ()
 // {

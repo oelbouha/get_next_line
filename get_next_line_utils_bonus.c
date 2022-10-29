@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line_utils.c                              :+:      :+:    :+:   */
+/*   get_next_line_utils_bonus.c                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: oelbouha <oelbouha@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/20 19:31:53 by oelbouha          #+#    #+#             */
-/*   Updated: 2022/10/29 16:34:41 by oelbouha         ###   ########.fr       */
+/*   Updated: 2022/10/29 18:52:45 by oelbouha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line.h"
+#include "get_next_line_bonus.h"
 
 char	*ft_strjoin(char *s1, char *s2)
 {
@@ -96,7 +96,7 @@ char	*make_line(char **array, char *rest, size_t n)
 	if (!line)
 		return (NULL);
 	ft_strncpy(line, rest, ft_strlen(rest));
-	rest[0] = 0;
+	*rest = 0;
 	i = -1;
 	if (array)
 	{
