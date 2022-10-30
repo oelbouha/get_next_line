@@ -83,6 +83,8 @@ char	*get_next_line(int fd)
 	int			r;
 	int			n;
 
+	if (fd < 0)
+		return (0);
 	if (ft_strchr(rest[fd], '\n'))
 		return (check_rest(rest[fd]));
 	n = 0;
@@ -103,30 +105,3 @@ char	*get_next_line(int fd)
 	}
 	return (make_line(str, rest[fd], n));
 }
-// int main ()
-// {
-// int fd = open("file2.txt", O_CREAT | O_RDWR);
-// char *s = get_next_line(fd);
-// printf("line :====> %s", s);
-// s = get_next_line(fd);
-// printf("line :====> %s", s);
-// s = get_next_line(fd);
-// printf("line :====> %s", s);
-// s = get_next_line(fd);
-// printf("line :====> %s", s);
-// s = get_next_line(fd);
-// printf("line :====> %s", s);
-// s = get_next_line(fd);
-// printf("line :====> %s", s);
-// s = get_next_line(fd);
-// printf("line :====> %s", s);
-// s = get_next_line(fd);
-// printf("line :====> %s", s);
-// s = get_next_line(fd);
-// printf("line :====> %s", s);
-// s = get_next_line(fd);
-// printf("line :====> %s", s);
-// s = get_next_line(fd);
-// printf("line :====> %s", s);
-// close(fd);
-// }
