@@ -6,7 +6,7 @@
 /*   By: oelbouha <oelbouha@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/28 17:22:27 by oelbouha          #+#    #+#             */
-/*   Updated: 2022/10/29 18:55:19 by oelbouha         ###   ########.fr       */
+/*   Updated: 2022/10/31 15:52:43 by oelbouha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ char	*ft_strchr(const char *s, int c)
 	return (NULL);
 }
 
-char	*check_rest(char *rest)
+char	*line_from_rest(char *rest)
 {
 	char	*line;
 	int		i;
@@ -86,7 +86,7 @@ char	*get_next_line(int fd)
 	if (fd < 0)
 		return (0);
 	if (ft_strchr(rest[fd], '\n'))
-		return (check_rest(rest[fd]));
+		return (line_from_rest(rest[fd]));
 	n = 0;
 	str = NULL;
 	while (++n)
@@ -98,8 +98,6 @@ char	*get_next_line(int fd)
 			return (0);
 		buff[r] = 0;
 		str = save_buff(str, buff, n);
-		if (!str)
-			return (0);
 		if (ft_strchr(buff, '\n') || r < BUFFER_SIZE)
 			break ;
 	}
