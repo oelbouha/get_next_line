@@ -58,7 +58,7 @@ char	*ft_strchr(const char *s, int c)
 	return (NULL);
 }
 
-char	*line_from_rest(char *rest)
+char	*check_rest(char *rest)
 {
 	char	*line;
 	int		i;
@@ -84,7 +84,7 @@ char	*get_next_line(int fd)
 	int			n;
 
 	if (ft_strchr(rest, '\n'))
-		return (line_from_rest(rest));
+		return (check_rest(rest));
 	n = 0;
 	str = NULL;
 	while (++n)
