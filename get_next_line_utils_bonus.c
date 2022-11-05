@@ -19,14 +19,14 @@ char	*ft_strjoin(char *s1, char *s2)
 
 	i = ft_strlen(s1);
 	j = 0;
-	while (s2[j] != '\n' && s2[j] != '\0')
+	while (s2[j] && s2[j] != '\n')
 	{
 		s1[i] = s2[j];
 		i++;
 		j++;
 	}
 	if (s2[j] == '\n')
-		s1[i++] = s2[j++];
+		s1[i++] = '\n';
 	s1[i] = '\0';
 	return (s1);
 }
@@ -92,7 +92,7 @@ char	*make_line(char **array, char *rest, size_t n)
 	char	*line;
 	int		i;
 
-	line = malloc(n * BUFFER_SIZE + 1);
+	line = malloc(n * BUFFER_SIZE + ft_strlen(rest) + 1);
 	if (!line)
 		return (NULL);
 	ft_strncpy(line, rest, ft_strlen(rest));

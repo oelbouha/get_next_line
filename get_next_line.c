@@ -103,3 +103,17 @@ char	*get_next_line(int fd)
 	}
 	return (make_line(str, rest, n));
 }
+// #include <stdio.h>
+// #include <unistd.h>
+// #include <fcntl.h>
+// int main()
+// {
+// 	char *str ;
+// 	// int fd = open("open", O_CREAT | O_RDWR);
+// 	// str = get_next_line(fd);
+// 	// printf("line ==> %s", str);
+// 	// close(fd);
+// 	// int fd1 = open("open", O_CREAT | O_RDWR);
+// 	str = get_next_line(5);
+// 	printf("line ==> %s", str);
+// }
