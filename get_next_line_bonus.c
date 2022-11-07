@@ -6,7 +6,7 @@
 /*   By: oelbouha <oelbouha@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/28 17:22:27 by oelbouha          #+#    #+#             */
-/*   Updated: 2022/10/31 15:52:43 by oelbouha         ###   ########.fr       */
+/*   Updated: 2022/11/07 12:58:52 by oelbouha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,40 +22,53 @@ size_t	ft_strlen(const char *str)
 	return (i);
 }
 
-char	*ft_strdup(const char *s1)
+char	**save_buff(char **array, char *buff, size_t n)
 {
-	char	*fresh;
+	char	**new_arr;
 	int		i;
-	int		j;
 
-	i = ft_strlen(s1) + 1;
-	fresh = malloc(sizeof(char) * i);
-	if (!fresh)
-		return (NULL);
-	j = 0;
-	i = 0;
-	while (s1[i])
+	new_arr = malloc((n + 1) * sizeof(char *));
+	if (!new_arr)
+		return (0);
+	if (array)
 	{
-		fresh[j] = s1[i];
-		i++;
-		j++;
+		i = -1;
+		while (array[++i])
+			new_arr[i] = array[i];
+		free(array);
 	}
-	fresh[j] = '\0';
-	return (fresh);
+	new_arr[n - 1] = ft_strdup(buff);
+	new_arr[n] = NULL;
+	return (new_arr);
 }
 
-char	*ft_strchr(const char *s, int c)
+char	*make_line(char **array, char *rest, size_t n)
 {
-	int	i;
+	char	*line;
+	int		i;
 
-	i = 0;
-	while (s[i])
+	line = malloc(n * BUFFER_SIZE + ft_strlen(rest) + 1);
+	if (!line)
+		return (NULL);
+	ft_strncpy(line, rest, ft_strlen(rest));
+	*rest = 0;
+	i = -1;
+	if (array)
 	{
-		if (s[i] == c)
-			return ((char *) &s[i]);
-		i++;
+		while (array[++i] != NULL)
+		{
+			if (!ft_strchr(array[i], '\n'))
+				ft_strjoin(line, array[i]);
+			else if (ft_strchr(array[i], '\n'))
+			{
+				ft_strjoin(line, array[i]);
+				copy_to_rest(rest, array[i]);
+			}
+			free(array[i]);
+		}
+		free(array);
 	}
-	return (NULL);
+	return (line);
 }
 
 char	*check_rest(char *rest)

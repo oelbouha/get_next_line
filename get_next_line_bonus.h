@@ -6,7 +6,7 @@
 /*   By: oelbouha <oelbouha@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/28 17:21:32 by oelbouha          #+#    #+#             */
-/*   Updated: 2022/10/31 16:19:51 by oelbouha         ###   ########.fr       */
+/*   Updated: 2022/11/07 12:59:00 by oelbouha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 # define GET_NEXT_LINE_BONUS_H
 
 # ifndef BUFFER_SIZE
-#  define BUFFER_SIZE 1000
+#  define BUFFER_SIZE 100
 # endif
 
 # include <stdlib.h>
@@ -29,5 +29,7 @@ size_t	ft_strlen(const char *str);
 char	*ft_strncpy(char *dst, char *src, size_t n);
 char	*ft_strdup(const char *s1);
 char	*ft_strchr(const char *s, int c);
+char	*ft_strjoin(char *s1, char *s2);
+char	*copy_to_rest(char *dest, char *src);
 
 #endif
