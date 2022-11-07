@@ -78,7 +78,7 @@ char	*check_rest(char *rest)
 char	*get_next_line(int fd)
 {
 	char		buff[BUFFER_SIZE + 1];
-	static char	rest[OPEN_MAX][BUFFER_SIZE];
+	static char	rest[10000][BUFFER_SIZE];
 	char		**str;
 	int			r;
 	int			n;
@@ -92,8 +92,8 @@ char	*get_next_line(int fd)
 	while (++n)
 	{
 		r = read (fd, buff, BUFFER_SIZE);
-		if (r == 0 && *rest[fd])
-			break ;
+	//	if (r == 0 && *rest[fd])
+	//		break ;
 		if (r < 0 || (r == 0 && str == NULL))
 			return (0);
 		buff[r] = 0;
@@ -102,4 +102,16 @@ char	*get_next_line(int fd)
 			break ;
 	}
 	return (make_line(str, rest[fd], n));
-}
+}/*
+#include <stdio.h>
+#include <unistd.h>
+#include <fcntl.h>
+int main ()
+{
+	int fd = open("file", O_CREAT | O_RDWR);
+	printf("line ==> %s", get_next_line(fd));
+	close (fd);
+	int fd1 = open("file", O_CREAT | O_RDWR);	
+	printf("line ==> %s", get_next_line(fd1));
+	return 0;
+}*/

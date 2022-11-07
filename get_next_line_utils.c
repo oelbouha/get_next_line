@@ -36,36 +36,54 @@ char	*copy_to_rest(char *dest, char *src)
 	int	i;
 	int	j;
 
+	dest[0] = 0;
 	i = 0;
-	while (src[i] != '\n')
+	while (src[i] && src[i] != '\n')
 		i++;
+	if (!src[i])
+		return(dest);
 	i++;
 	j = 0;
 	while (src[i])
-	{
-		dest[j] = src[i];
-		j++;
-		i++;
-	}
+		dest[j++] = src[i++];
 	dest[j] = '\0';
 	return (dest);
 }
 
-char	*ft_strncpy(char *dst, char *src, size_t n)
+void	free_array(char **arr)
 {
-	size_t		i;
+	int	i;
 
-	if (dst == 0 && src == 0)
-		return (0);
-	i = 0;
-	while (src[i] && i < n)
-	{
-		dst[i] = src[i];
-		i++;
-	}
-	dst[i] = '\0';
-	return (dst);
+	i = -1;
+	while (arr[++i])
+		free(arr[i]);
+	free(arr);
 }
+
+/*
+
+	array = [c1, c2, ..., cn-1, 0]
+	n_arr = [c1, c2, ..., cn-1, cn, 0]
+
+	// solution 1
+	size = bufferSize>min?bufferSize:min
+	size = BUFFER_SIZE * (BUFFER_SIZE > MIN) + MIN * (BUFFER_SIZE < MIN);
+
+	if arr && size - len(arr[n-1]) < len(buff) 
+		concat(arr[n-1], buff, min)
+	else {
+		*n += 1;
+		n_arr = malloc(*n + 1);
+		n_arr[*n] = 0;
+		if (arr)
+			copy arr to n_arr and free
+		i = concat(narr[n - 2], buff, size)
+		concat(arr[n-1], &buff[i], size)
+		}
+	areturn
+
+
+*/
 
 char	**save_buff(char **array, char *buff, size_t n)
 {
@@ -95,23 +113,17 @@ char	*make_line(char **array, char *rest, size_t n)
 	line = malloc(n * BUFFER_SIZE + ft_strlen(rest) + 1);
 	if (!line)
 		return (NULL);
-	ft_strncpy(line, rest, ft_strlen(rest));
-	rest[0] = 0;
+	line[0] = 0;
+	ft_strjoin(line, rest);
 	i = -1;
 	if (array)
-	{
 		while (array[++i] != NULL)
-		{
-			if (!ft_strchr(array[i], '\n'))
 				ft_strjoin(line, array[i]);
-			else if (ft_strchr(array[i], '\n'))
-			{
-				ft_strjoin(line, array[i]);
-				copy_to_rest(rest, array[i]);
-			}
-			free(array[i]);
-		}
-		free(array);
+	copy_to_rest(rest, rest);
+	if (n)
+	{
+		copy_to_rest(rest, array[i - 1]);
+		free_array(array);
 	}
 	return (line);
 }
